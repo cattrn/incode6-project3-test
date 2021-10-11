@@ -1,0 +1,22 @@
+{
+  "name": "project3-test",
+  "version": "1.0.0",
+  "description": "Mr Coffee scheduling web app.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cattrn/incode6-project3-test.git"
+  },
+  "author": "Cat Turnbull",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cattrn/incode6-project3-test/issues"
+  },
+  "homepage": "https://github.com/cattrn/incode6-project3-test#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
