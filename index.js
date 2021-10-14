@@ -1,5 +1,6 @@
 const express = require('express')
 const bcrypt = require('bcryptjs')
+const morgan = require('morgan')
 const data = require('./data')
 const app = express() // invoke express in order to create an instance
 
@@ -8,6 +9,9 @@ const PORT = process.env.PORT || 3000
 // JSON and form parsing middleware
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+
+// Logging middleware
+app.use(morgan('dev'))
 
 // ROUTES
 // Welcome
