@@ -13,20 +13,33 @@ app.use(express.urlencoded({ extended: true }))
 // Logging middleware
 app.use(morgan('dev'))
 
+// Set view engine
+app.set('view engine', 'ejs')
+
+// Set static folder
+app.use(express.static('public'))
+
 // ROUTES
 // Welcome
 app.get('/', (req, res) => {
-  res.send("Welcome INCODE 6, you're doing a great job!")
+  res.render('pages/home')
 })
 
 // Get all users
 app.get('/users', (req, res) => {
-  res.send(data.users)
+  // res.send(data.users)
+  res.render('pages/users', {
+    users: data.users
+  })
 })
 
 // Get all posts
 app.get('/posts', (req, res) => {
   res.send(data.posts)
+})
+
+app.get('/users/add', (req, res) => {
+  res.render('pages/new-user')
 })
 
 // Get individual user
@@ -54,7 +67,13 @@ app.post('/users', (req, res) => {
   const hash = bcrypt.hashSync(password, salt)
 
   // TODO: Add hash to user object and then push to user array
-  res.send(hash)
+  data.users.push({
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    email: req.body.email,
+    password: hash
+  })
+  res.redirect('/users')
 })
 
 

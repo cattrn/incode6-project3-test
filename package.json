@@ -18,6 +18,7 @@
   "homepage": "https://github.com/cattrn/incode6-project3-test#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "ejs": "^3.1.6",
     "express": "^4.17.1",
     "morgan": "^1.10.0"
   },
