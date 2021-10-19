@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS incode6_test;
+CREATE DATABASE incode6_test;

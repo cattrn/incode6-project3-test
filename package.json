@@ -4,6 +4,9 @@
   "description": "Mr Coffee scheduling web app.",
   "main": "index.js",
   "scripts": {
+    "create_db": "psql -U postgres -f sql/create_db.sql",
+    "create_table": "psql -U postgres -d incode6_test -f sql/create_table.sql",
+    "seed_table": "psql -U postgres -d incode6_test -f sql/seed_table.sql",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
