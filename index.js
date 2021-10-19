@@ -40,8 +40,7 @@ app.get('/posts', (req, res) => {
   })
   .catch((error) => {
     console.log(error)
-    res.send(error)
-    // TODO: render out error on error page
+    res.redirect("/error?message=" + error.message)
   })
 })
 
@@ -63,8 +62,13 @@ app.post('/posts', (req, res) => {
   })
   .catch((error) => {
     console.log(error)
-    res.send(error)
-    // TODO: render out an error page
+    res.redirect("/error?message=" + error.message)
+  })
+})
+
+app.get("*", (req, res) => {
+  res.render('pages/error', {
+    message: req.query.message || "This page cannot be found"
   })
 })
 
