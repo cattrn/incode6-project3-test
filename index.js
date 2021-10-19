@@ -1,6 +1,7 @@
 const express = require('express')
 const bcrypt = require('bcryptjs')
 const morgan = require('morgan')
+const db = require('./database')
 const data = require('./data')
 const app = express() // invoke express in order to create an instance
 
@@ -25,55 +26,46 @@ app.get('/', (req, res) => {
   res.render('pages/home')
 })
 
-// Get all users
-app.get('/users', (req, res) => {
-  // res.send(data.users)
-  res.render('pages/users', {
-    users: data.users
+// Get all posts
+app.get('/posts', (req, res) => {
+
+  db.any('SELECT * FROM posts;')
+  .then((posts) => {
+    console.log(posts)
+
+    res.render('pages/posts', {
+      posts,
+      message: req.query.message
+    })
+  })
+  .catch((error) => {
+    console.log(error)
+    res.send(error)
+    // TODO: render out error on error page
   })
 })
 
-// Get all posts
-app.get('/posts', (req, res) => {
-  res.send(data.posts)
-})
-
-app.get('/users/add', (req, res) => {
-  res.render('pages/new-user')
-})
-
-// Get individual user
-app.get('/users/:id', (req, res) => {
-  // TODO: Validate req.params.id
-
-  const user = data.users[req.params.id]
-  res.send(user)
+// Display form for adding a new post
+app.get('/posts/add', (req, res) => {
+  res.render('pages/new-post')
 })
 
 // Create new post
 app.post('/posts', (req, res) => {
+  const {username, title, body} = req.body
   // TODO: Validate data
 
-  // Add post to all posts
-  data.posts.push(req.body)
-  res.send(req.body)
-})
-
-// Create new user
-app.post('/users', (req, res) => {
-  // Using bcryptjs
-  const password = req.body.password
-  const salt = bcrypt.genSaltSync(10)
-  const hash = bcrypt.hashSync(password, salt)
-
-  // TODO: Add hash to user object and then push to user array
-  data.users.push({
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    email: req.body.email,
-    password: hash
+  // Add post to db
+  db.none('INSERT INTO posts (username, title, body) VALUES ($1, $2, $3);', [username, title, body])
+  .then(() => {
+    // success, what do we do want to do?
+    res.redirect('/posts?message=Post+successfully+added')
   })
-  res.redirect('/users')
+  .catch((error) => {
+    console.log(error)
+    res.send(error)
+    // TODO: render out an error page
+  })
 })
 
 

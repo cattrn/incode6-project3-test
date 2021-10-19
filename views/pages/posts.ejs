@@ -14,23 +14,26 @@
     <table>
       <thead>
         <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Email</th>
-          <th>Password</th>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Title</th>
+          <th>Body</th>
         </tr>
       </thead>
       <tbody>
-        <% for (let i = 0; i < users.length; i++) { %>
+        <% for (let i = 0; i < posts.length; i++) { %>
           <tr>
-            <td><%= users[i].firstname %></td>
-            <td><%= users[i].lastname %></td>
-            <td><%= users[i].email %></td>
-            <td><%= users[i].password %></td>
+            <td><%= posts[i].id %></td>
+            <td><%= posts[i].username %></td>
+            <td><%= posts[i].title %></td>
+            <td><%= posts[i].body %></td>
           </tr>
         <% } %>
       </tbody>
     </table>
+
+    <p style="color: red;"><%= message %></p>
+
   </main>
 
   <!-- include footer -->
